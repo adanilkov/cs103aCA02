@@ -66,7 +66,7 @@ router.get('/transaction/remove/:transactionId', isLoggedIn, async (req, res) =>
     await transaction.deleteOne({_id:req.params.transactionId});
       res.redirect('/transaction')
 })
-
+//edit transaction
 router.get('/transaction/edit/:transactionId', isLoggedIn, async (req, res) => {
     const item = await transaction.findById(req.params.transactionId)
     res.render('editTransaction', {item})
