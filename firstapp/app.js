@@ -7,6 +7,7 @@ const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const toDoRouter = require('./routes/todo');
 const weatherRouter = require('./routes/weather');
+const transactionRouter = require('./routes/transactions');
 
 const User = require('./models/User');
 
@@ -18,7 +19,7 @@ console.log('MONGODB_URI=',process.env.MONGODB_URI);
 
 const mongoose = require( 'mongoose' );
 
-mongoose.connect( mongodb_URI);
+mongoose.connect(mongodb_URI);
 
 const db = mongoose.connection;
 
@@ -108,6 +109,8 @@ app.get('/about',
 
 app.use(toDoRouter);
 app.use(weatherRouter);
+app.use(transactionRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

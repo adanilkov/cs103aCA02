@@ -38,9 +38,8 @@ router.get('/todo/',
                         .sort({completed:1,priority:1,createdAt:1})
 
       }
-            res.render('toDoList',{items,show,completed});
+            res.render('toDoList', {items,show,completed});
 });
-
 
 
 /* add the value in the body to the list associated to the key */
