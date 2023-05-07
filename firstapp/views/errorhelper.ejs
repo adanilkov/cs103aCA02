@@ -4,8 +4,8 @@
   <link rel="stylesheet" href="../public/stylesheets/refactor.css">
 </head>
 <body>
-
-<h1>Practice for Your Interview</h1>
+    
+<h1>Have an error? We can help!</h1>
 <div>
     <form action = '/interview/gpt', method="POST"> 
         <input type="text" autocomplete="off" name="prompt" id="prompt">
@@ -22,11 +22,11 @@
 
     const submit = async(event) => {
         event.preventDefault();
-        const response = await fetch("/interview/gpt", {
+        const response = await fetch("/errorhelper/gpt", {
             method:"POST",  
             headers: {"Content-Type": "application/json"},
             body:JSON.stringify({ 
-            prompt: `What position are you applying for?: ${field}.`}),
+            prompt: `Paste your error message below: ${field}.`}),
         });
         if (response === 200) {
             res.innerHTML = await responsn7m89jme.text();
