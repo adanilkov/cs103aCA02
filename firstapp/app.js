@@ -12,7 +12,7 @@ const refactorRouter = require('./routes/refactor');
 /* **************************************** */
 /*  Connecting to a Mongo Database Server   */
 /* **************************************** */
-const mongodb_URI = "mongodb+srv://admin:admin@pa04.vnixqep.mongodb.net/?retryWrites=true&w=majority" || 'mongodb://127.0.0.1:27017/pwdemo';
+const mongodb_URI = process.env.MONGODB_URI || "mongodb+srv://nsubrahmanian:MCFadEzbt9vreIVE@ca02.7pktzd6.mongodb.net/?retryWrites=true&w=majority";
 console.log('MONGODB_URI=',process.env.MONGODB_URI);
 
 const mongoose = require( 'mongoose' );
