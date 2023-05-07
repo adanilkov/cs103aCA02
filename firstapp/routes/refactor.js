@@ -10,18 +10,19 @@ isLoggedIn = (_,res,next) => {
     }
   }
 
-router.get('/refactor', isLoggedIn, async (req, res) => {
+router.get('/refactor/', isLoggedIn, async (req, res) => {
     res.render('refactor')
+    console.log("renderededed")
 })
 
-router.get('/refactor/gpt', isLoggedIn, async (req, res) => {
+router.post('/refactor/gpt', isLoggedIn, async (req, res) => {
+    console.log("hit");
     if (req.body.prompt != null) {
-        res.status(204).json({error: 'no prompt'}).send();
-    } else {
         const resp = await axios.post('http://gracehopper.cs-i.brandeis.edu:3500/openai',
-            {prompt:req.body.prompt})
-
+        {prompt:req.body.prompt})
         res.status(200).send(resp.data.choices[0]['message']['content']);
+    } else {
+        res.status(204).json({error: 'no prompt'}).send();
     }
 })
 
