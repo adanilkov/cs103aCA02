@@ -7,6 +7,7 @@ const logger = require('morgan');
 const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const refactorRouter = require('./routes/refactor');
+const interviewRouter = require('./routes/interview');
 
 
 /* **************************************** */
@@ -87,18 +88,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
 app.use(pw_auth_router)
 
 app.use(layouts);
 
 app.get('/', (req,res,next) => {
-  res.render('home');
-})
-
-app.get('/index', (req,res,next) => {
   res.render('index');
 })
 
@@ -121,7 +115,7 @@ app.get('/team', isLoggedIn, (req, res, next) => {
 })
 
 app.use(refactorRouter);
-
+app.use(interviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

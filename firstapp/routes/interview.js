@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.router
+const router = express.Router()
 const axios = require('axios');
 
 isLoggedIn = (_,res,next) => {
@@ -12,7 +12,7 @@ isLoggedIn = (_,res,next) => {
 
 router.get('/interview/', isLoggedIn, async (req, res) => {
     res.render('interview')
-    console.log("rendered")
+    console.log("renderededed")
 })
 
 router.post('/interview/gpt', isLoggedIn, async (req, res) => {
