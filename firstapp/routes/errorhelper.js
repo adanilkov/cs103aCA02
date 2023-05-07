@@ -15,7 +15,7 @@ router.get('/errorhelper/', isLoggedIn, async (req, res) => {
     console.log("rendered")
 })
 
-router.post('/interview/gpt', isLoggedIn, async (req, res) => {
+router.post('/errorhelper/gpt', isLoggedIn, async (req, res) => {
     console.log("hit");
     if (req.body.prompt != null) {
         const resp = await axios.post('http://gracehopper.cs-i.brandeis.edu:3500/openai',
