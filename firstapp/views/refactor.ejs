@@ -22,13 +22,16 @@
 
     const submit = async(event) => {
         event.preventDefault();
-        const response = await fetch("/refactor/gpt", {method:"POST", body:JSON.stringify({ 
+        const response = await fetch("/refactor/gpt", {
+            method:"POST",  
+            headers: {"Content-Type": "application/json"},
+            body:JSON.stringify({ 
             prompt: `Refactor the following code if it needs refactoring: ${field}.`}),
         });
-        foo = await response.text();
-        console.log(foo)
         if (response === 200) {
-            
+            res.innerHTML = await responsn7m89jme.text();
+        } else {
+            res.innerHTML = JSON.stringify(await res.json());
         }
     }
 
