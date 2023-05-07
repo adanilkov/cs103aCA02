@@ -1,3 +1,4 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -6,11 +7,14 @@ const logger = require('morgan');
 const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const refactorRouter = require('./routes/refactor');
+const error_helper_router = require('./routes/errorhelper');
+const toPythonRouter = require('./routes/toPython');
+
 
 /* **************************************** */
 /*  Connecting to a Mongo Database Server   */
 /* **************************************** */
-const mongodb_URI = "mongodb+srv://admin:admin@pa04.vnixqep.mongodb.net/?retryWrites=true&w=majority" || 'mongodb://127.0.0.1:27017/pwdemo';
+const mongodb_URI = process.env.MONGODB_URI || "mongodb+srv://nsubrahmanian:MCFadEzbt9vreIVE@ca02.7pktzd6.mongodb.net/?retryWrites=true&w=majority";
 console.log('MONGODB_URI=',process.env.MONGODB_URI);
 
 const mongoose = require( 'mongoose' );
@@ -85,18 +89,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
 app.use(pw_auth_router)
 
 app.use(layouts);
 
 app.get('/', (req,res,next) => {
-  res.render('index');
-})
-
-app.get('/index', (req,res,next) => {
   res.render('index');
 })
 
@@ -119,7 +116,8 @@ app.get('/team', isLoggedIn, (req, res, next) => {
 })
 
 app.use(refactorRouter);
-
+app.use(error_helper_router);
+app.use(toPythonRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../public/stylesheets/prompt.css">
+</head>
+<body>
+
+<h1>Convert Your Code to Python</h1>
+<div>
+    <form action = '/toPython/gpt', method="POST"> 
+        <input type="text" autocomplete="off" name="prompt" id="prompt">
+        <input type="submit" value="submit" id="press">
+    </form>
+    <p id="res"></p>
+</div>
+</body>
+</html>
+
+<script>
+    const promptField = document.getElementById("prompt");
+    const response = document.getElementById("res");
+    const submit = document.getElementById("submit");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const prompt = promptField.value;
+        response.innerHTML = "Loading...";
+
+        const res = await fetch("/toPython/gpt", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ prompt: `Convert the following code from its current language into Python. If it is already in Python, just return the code as is.
+            Do not include any other text in your response aside from the code itself: ${field}` }),
+        });
+        if (res.status !== 200) {
+            response.innerHTML = JSON.stringify(await res.json());
+            return;
+        } else {
+            response.innerHTML = await res.text();
+        }
+    }
+
+    submit.addEventListener("click", handleSubmit);
+
+</script>
+
+<!-- <script>
+    const field = document.getElementById("prompt").value;
+    const res = document.getElementById("res")
+    const press = document.getElementById("press")
+
+    const submit = async(event) => {
+        event.preventDefault();
+        const response = await fetch("/toPython/gpt", {
+            method:"POST",  
+            headers: {"Content-Type": "application/json"},
+            body:JSON.stringify({ 
+            prompt: `Convert the following code from its current language into Python. If it is already in Python, just return the code as is.
+            Do not include any other text in your response aside from the code itself: ${field}.`}),
+        });
+        if (response === 200) {
+            res.innerHTML = await responsn7m89jme.text();
+        } else {
+            res.innerHTML = JSON.stringify(await res.json());
+        }
+    }
+
+    press.addEventListener("click", submit);
+
+</script> -->

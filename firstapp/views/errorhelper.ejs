@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../public/stylesheets/errorhelper.css">
+  </head>
+  <body>
+    <h1>Have an error? We can help!</h1>
+    <p class="bg-info">Follow the steps below and number your response provided space.</p>
+
+    <ol>
+      <li>What programming language are you using?</li>
+      <li>What does the error message say?</li>
+      <li>Have you tried any troubleshooting steps so far?</li>
+      <li>Any additional context you can provide will be helpful in finding a solution.</li>
+      <li>Please provide a code snippet that's related to the error you're experiencing. Be sure to include any relevant libraries or dependencies.</li>
+    </ol>
+
+    <div>
+      <form action="/errorhelper/gpt" method="POST">
+        <textarea name="prompt" id="prompt" rows="10" cols="50"></textarea>
+        <button type="submit" id="submit">Submit</button>
+      </form>
+      <p id="response"></p>
+    </div>
+
+    <script>
+      const promptField = document.getElementById("prompt");
+      const submitButton = document.getElementById("submit");
+      const response = document.getElementById("response");
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const prompt = promptField.value;
+        response.innerHTML = "Loading...";
+        const res = await fetch("/errorhelper/gpt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: `Please provide more information about the error you're experiencing. What programming language are you using? What does the error message say? Have you tried any troubleshooting steps so far? Any additional context you can provide will be helpful in finding a solution. Also, please provide a code snippet that's related to the error you're experiencing. This will help us understand the issue and provide more targeted solutions. Be sure to include any relevant libraries or dependencies. ${prompt}` }),
+        });
+        if (res.status !== 200) {
+          response.innerHTML = JSON.stringify(await res.json());
+          return;
+        } else {
+          response.innerHTML = await res.text();
+        }
+      }
+
+      submitButton.addEventListener("click", handleSubmit);
+    </script>
+  </body>
+</html>
