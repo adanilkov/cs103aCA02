@@ -10,9 +10,9 @@ isLoggedIn = (_,res,next) => {
     }
   }
 
-router.get('/interview/', isLoggedIn, async (req, res) => {
-    res.render('interview')
-    console.log("renderededed")
+router.get('/errorhelper/', isLoggedIn, async (req, res) => {
+    res.render('errorhelper')
+    console.log("rendered")
 })
 
 router.post('/interview/gpt', isLoggedIn, async (req, res) => {

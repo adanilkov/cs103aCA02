@@ -7,7 +7,7 @@ const logger = require('morgan');
 const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const refactorRouter = require('./routes/refactor');
-const interviewRouter = require('./routes/interview');
+const error_helper_router = require('./routes/errorhelper');
 const toPythonRouter = require('./routes/toPython');
 
 
@@ -116,7 +116,7 @@ app.get('/team', isLoggedIn, (req, res, next) => {
 })
 
 app.use(refactorRouter);
-app.use(interviewRouter);
+app.use(error_helper_router);
 app.use(toPythonRouter);
 
 // catch 404 and forward to error handler
