@@ -12,7 +12,7 @@ isLoggedIn = (_,res,next) => {
 
 router.get('/toPython/', isLoggedIn, async (req, res) => {
     res.render('toPython')
-    console.log("renderededed")
+    console.log("rendered")
 })
 
 router.post('/toPython/gpt', isLoggedIn, async (req, res) => {

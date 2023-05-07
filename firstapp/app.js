@@ -8,6 +8,7 @@ const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const refactorRouter = require('./routes/refactor');
 const interviewRouter = require('./routes/interview');
+const toPythonRouter = require('./routes/toPython');
 
 
 /* **************************************** */
@@ -116,6 +117,7 @@ app.get('/team', isLoggedIn, (req, res, next) => {
 
 app.use(refactorRouter);
 app.use(interviewRouter);
+app.use(toPythonRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
