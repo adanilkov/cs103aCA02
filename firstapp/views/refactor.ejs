@@ -8,28 +8,30 @@
 <h1>Refactor Your Code</h1>
 <div>
     <form action = '/refactor/gpt', method="POST"> 
-        <input type="text" autocomplete="off" name="prompt" id="prompt">
+        <textarea cols="40" rows="5" type="text" autocomplete="off" name="prompt" id="prompt"></textarea>
         <input type="submit" value="submit" id="press">
     </form>
-    <p id="res"></p>
+    <p id="res">""</p>
 </div>
 </body>
 </html>
 <script>
-    const field = document.getElementById("prompt").value;
+    const field = document.getElementById("prompt");
     const res = document.getElementById("res")
     const press = document.getElementById("press")
 
     const submit = async(event) => {
         event.preventDefault();
+        const prompt = field.value;
         const response = await fetch("/refactor/gpt", {
             method:"POST",  
             headers: {"Content-Type": "application/json"},
             body:JSON.stringify({ 
-            prompt: `Refactor the following code if it needs refactoring: ${field}.`}),
+            prompt: `Refactor the following code: ${[prompt]}. \n If the code does not need any refactoring please send back the 
+            code that I have given you and nothing else.`}),
         });
         if (response === 200) {
-            res.innerHTML = await responsn7m89jme.text();
+            res.innerHTML = await response.text();
         } else {
             res.innerHTML = JSON.stringify(await res.json());
         }
