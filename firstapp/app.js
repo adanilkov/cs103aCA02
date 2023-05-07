@@ -7,8 +7,6 @@ const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const refactorRouter = require('./routes/refactor');
 
-const User = require('./models/User');
-
 /* **************************************** */
 /*  Connecting to a Mongo Database Server   */
 /* **************************************** */
@@ -98,12 +96,20 @@ app.get('/', (req,res,next) => {
   res.render('index');
 })
 
+app.get('/index', (req,res,next) => {
+  res.render('index');
+})
+
 app.get('/about', 
   isLoggedIn,
   (req,res,next) => {
     res.render('about');
   }
 )
+
+app.get('/team', isLoggedIn, (req, res, next) => {
+  res.render('team');
+})
 
 app.use(refactorRouter);
 

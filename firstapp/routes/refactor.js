@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const { isLoggedIn } = require('./pwauth');
 
 isLoggedIn = (_,res,next) => {
     if (res.locals.loggedIn) {
