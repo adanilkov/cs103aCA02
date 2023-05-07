@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../public/stylesheets/refactor.css">
+</head>
+<body>
+
+<h1>Practice for Your Interview</h1>
+<div>
+    <form action = '/interview/gpt', method="POST"> 
+        <input type="text" autocomplete="off" name="prompt" id="prompt">
+        <input type="submit" value="submit" id="press">
+    </form>
+    <p id="res"></p>
+</div>
+</body>
+</html>
+<script>
+    const field = document.getElementById("prompt").value;
+    const res = document.getElementById("res")
+    const press = document.getElementById("press")
+
+    const submit = async(event) => {
+        event.preventDefault();
+        const response = await fetch("/interview/gpt", {
+            method:"POST",  
+            headers: {"Content-Type": "application/json"},
+            body:JSON.stringify({ 
+            prompt: `What position are you applying for?: ${field}.`}),
+        });
+        if (response === 200) {
+            res.innerHTML = await responsn7m89jme.text();
+        } else {
+            res.innerHTML = JSON.stringify(await res.json());
+        }
+    }
+
+    press.addEventListener("click", submit);
+
+</script>
