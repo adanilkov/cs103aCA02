@@ -15,7 +15,38 @@
 </div>
 </body>
 </html>
+
 <script>
+    const promptField = document.getElementById("prompt");
+    const response = document.getElementById("res");
+    const submit = document.getElementById("submit");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const prompt = promptField.value;
+        response.innerHTML = "Loading...";
+
+        const res = await fetch("/toPython/gpt", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ prompt: `Convert the following code from its current language into Python. If it is already in Python, just return the code as is.
+            Do not include any other text in your response aside from the code itself: ${field}` }),
+        });
+        if (res.status !== 200) {
+            response.innerHTML = JSON.stringify(await res.json());
+            return;
+        } else {
+            response.innerHTML = await res.text();
+        }
+    }
+
+    submit.addEventListener("click", handleSubmit);
+
+</script>
+
+<!-- <script>
     const field = document.getElementById("prompt").value;
     const res = document.getElementById("res")
     const press = document.getElementById("press")
@@ -38,4 +69,4 @@
 
     press.addEventListener("click", submit);
 
-</script>
+</script> -->
