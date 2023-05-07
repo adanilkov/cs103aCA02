@@ -5,9 +5,9 @@
 </head>
 <body>
 
-<h1>Refactor Your Code</h1>
+<h1>Convert Your Code to Python</h1>
 <div>
-    <form action = '/refactor/gpt', method="POST"> 
+    <form action = '/toPython/gpt', method="POST"> 
         <input type="text" autocomplete="off" name="prompt" id="prompt">
         <input type="submit" value="submit" id="press">
     </form>
@@ -22,11 +22,12 @@
 
     const submit = async(event) => {
         event.preventDefault();
-        const response = await fetch("/refactor/gpt", {
+        const response = await fetch("/toPython/gpt", {
             method:"POST",  
             headers: {"Content-Type": "application/json"},
             body:JSON.stringify({ 
-            prompt: `Refactor the following code if it needs refactoring: ${field}.`}),
+            prompt: `Convert the following code from its current language into Python. If it is already in Python, just return the code as is.
+            Do not include any other text in your response aside from the code itself: ${field}.`}),
         });
         if (response === 200) {
             res.innerHTML = await responsn7m89jme.text();
