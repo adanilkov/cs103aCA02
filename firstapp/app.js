@@ -1,3 +1,4 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,10 +8,11 @@ const layouts = require("express-ejs-layouts");
 const pw_auth_router = require('./routes/pwauth')
 const refactorRouter = require('./routes/refactor');
 
+
 /* **************************************** */
 /*  Connecting to a Mongo Database Server   */
 /* **************************************** */
-const mongodb_URI = process.env.MONGODB_URI || "mongodb+srv://nsubrahmanian:MCFadEzbt9vreIVE@ca02.7pktzd6.mongodb.net/?retryWrites=true&w=majority";
+const mongodb_URI = "mongodb+srv://admin:admin@pa04.vnixqep.mongodb.net/?retryWrites=true&w=majority" || 'mongodb://127.0.0.1:27017/pwdemo';
 console.log('MONGODB_URI=',process.env.MONGODB_URI);
 
 const mongoose = require( 'mongoose' );
@@ -93,7 +95,7 @@ app.use(pw_auth_router)
 app.use(layouts);
 
 app.get('/', (req,res,next) => {
-  res.render('index');
+  res.render('home');
 })
 
 app.get('/index', (req,res,next) => {
