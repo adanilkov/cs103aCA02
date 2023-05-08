@@ -11,10 +11,8 @@
         <textarea cols="40" rows="5" type="text" autocomplete="off" name="prompt" id="prompt"></textarea>
         <input type="submit" value="submit" id="press">
     </form>
-    <p id="res">""</p>
+    <p id="res"></p>
 </div>
-</body>
-</html>
 <script>
     const field = document.getElementById("prompt");
     const res = document.getElementById("res")
@@ -23,6 +21,7 @@
     const submit = async(event) => {
         event.preventDefault();
         const prompt = field.value;
+        res.innerHTML = "loading...";
         const response = await fetch("/refactor/gpt", {
             method:"POST",  
             headers: {"Content-Type": "application/json"},
@@ -30,13 +29,18 @@
             prompt: `Refactor the following code: ${[prompt]}. \n If the code does not need any refactoring please send back the 
             code that I have given you and nothing else.`}),
         });
+        console.log("AAAAAAAAAA")
         if (response === 200) {
+            console.log("BBBBBBBB")
             res.innerHTML = await response.text();
         } else {
-            res.innerHTML = JSON.stringify(await res.json());
+            console.log("CCCCCCC")
+            res.innerHTML = JSON.stringify(await response.json());
         }
     }
 
     press.addEventListener("click", submit);
 
 </script>
+</body>
+</html>
